@@ -3,6 +3,8 @@ package simpleframework.view {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 
+	import mulunka.display.BaseView;
+
 	public class ControlsView extends BaseView {
 		public function ControlsView() {
 			super();

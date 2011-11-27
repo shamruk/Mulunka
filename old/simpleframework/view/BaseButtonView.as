@@ -4,6 +4,8 @@ package simpleframework.view {
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 
+	import mulunka.display.BaseView;
+
 	import simpleframework.utils.MovieClipPlayUtil;
 
 	public class BaseButtonView extends BaseView {

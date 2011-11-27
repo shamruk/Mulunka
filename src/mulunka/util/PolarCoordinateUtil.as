@@ -1,4 +1,4 @@
-package simpleframework.utils {
+package mulunka.util {
 	/**
 	 * @author sms
 	 */

@@ -18,19 +18,13 @@ package mulunka.display {
 	use namespace mx_internal;
 
 	[DefaultProperty("children")]
-	public class ViewBase extends BaseView implements IChildList {
+	public class View extends BaseView implements IChildList {
 
 		private var _width : Number;
 		private var _height : Number;
 		private var _clipContent : Boolean;
 
 		private var _skinFactory : IFactory;
-
-//		public function set children(value : Vector.<DisplayObject>) : void {
-//			for each(var child : DisplayObject in value) {
-//				addChild(child);
-//			}
-//		}
 
 		private var tempChildren : Vector.<DisplayObject>;
 		public var addChildrenImmediately : Boolean = true;
@@ -46,20 +40,14 @@ package mulunka.display {
 			} else if (tempChildren) {
 				tempChildren = tempChildren.concat(value);
 			} else {
-
-				debug(">>>0", this, value);
 				tempChildren = value;
 			}
 		}
 
 		override public function createChildren() : void {
-			//debug(">>>1", this, tempChildren);
-
 			super.createChildren();
-
 			children = tempChildren;
 			tempChildren = null;
-			debug(">>>2", this, "value");
 		}
 
 		[Bindable]

@@ -2,7 +2,7 @@ package mulunka.display {
 	import flash.display.DisplayObject;
 	import flash.utils.Dictionary;
 
-	import mulunka.display.ViewBase;
+	import mulunka.display.View;
 
 	import mx.collections.IList;
 	import mx.core.IDataRenderer;
@@ -10,7 +10,7 @@ package mulunka.display {
 	import mx.events.CollectionEvent;
 
 	[Bindable]
-	public class DataView extends ViewBase {
+	public class CollectionView extends View {
 
 		public var setDataOnlyAfterAdding : Boolean = false;
 

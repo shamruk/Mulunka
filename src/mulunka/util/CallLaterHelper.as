@@ -1,4 +1,4 @@
-package shamm.framework.helpers {
+package mulunka.util {
 	import flash.utils.Dictionary;
 	import flash.utils.setTimeout;
 

@@ -4,6 +4,8 @@ package simpleframework.view {
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 
+	import mulunka.display.BaseView;
+
 	public class RootView extends BaseView {
 		protected var currentScreen : BaseView;
 		//		private var screens : Array = [];

@@ -1,4 +1,6 @@
 package simpleframework.view {
+	import mulunka.display.BaseView;
+
 	import simpleframework.model.IModel;
 	import simpleframework.model.StateModel;
 

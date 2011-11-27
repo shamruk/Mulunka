@@ -1,4 +1,4 @@
-package shamm.framework.helpers {
+package mulunka.display {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;

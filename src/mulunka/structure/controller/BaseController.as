@@ -1,4 +1,4 @@
-package simpleframework.controller {
+package mulunka.structure.controller {
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;

@@ -5,7 +5,7 @@
  * Time: 11:10 PM
  * To change this template use File | Settings | File Templates.
  */
-package shamm.framework.events {
+package mulunka.events {
 	import flash.events.Event;
 
 	public class ItemAddedEvent extends Event {
