@@ -13,7 +13,7 @@ package mulunka.display {
 	import mx.states.SetProperty;
 	import mx.states.State;
 
-	import simpleframework.view.BaseView;
+	import mulunka.display.BaseView;
 
 	use namespace mx_internal;
 

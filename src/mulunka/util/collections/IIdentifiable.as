@@ -1,6 +1,5 @@
 package mulunka.util.collections {
-	public class IIdentifiable {
-		public function IIdentifiable() {
-		}
+	public interface IIdentifiable {
+		function get id():String;
 	}
 }

@@ -1,6 +1,8 @@
 package mulunka.util {
 	import flash.utils.Timer;
 
+	[Event(type="flash.events.TimerEvent", name="timer")]
+	[Event(type="flash.events.TimerEvent", name="timerComplete")]
 	public class TimerHelper extends Timer {
 
 		public function TimerHelper() {

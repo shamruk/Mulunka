@@ -1,5 +1,4 @@
 package mulunka.display {
-	import simpleframework.view.*;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
@@ -11,7 +10,9 @@ package mulunka.display {
 	import mx.binding.utils.BindingUtils;
 	import mx.binding.utils.ChangeWatcher;
 
-	public class BaseView extends Sprite {
+	import mulunka.display.interfaces.IDepthedView;
+
+	internal class BaseView extends Sprite {
 
 		protected var skin : DisplayObject;
 		public var doNotAddSkinToDiaplyList : Boolean = false;

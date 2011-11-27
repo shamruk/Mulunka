@@ -1,7 +1,7 @@
 package mulunka.display {
 	import flash.events.Event;
 
-	public class Application extends ViewBase {
+	public class Application extends View {
 
 		private var _width : Number = 0;
 		private var _height : Number = 0;
