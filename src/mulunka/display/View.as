@@ -13,8 +13,6 @@ package mulunka.display {
 	import mx.states.SetProperty;
 	import mx.states.State;
 
-	import mulunka.display.BaseView;
-
 	use namespace mx_internal;
 
 	[DefaultProperty("children")]
@@ -147,92 +145,97 @@ package mulunka.display {
 		////  states  ////
 		//////////////////
 
-		[Bindable]
-		public var states : Array = [];
+		CONFIG::flex4
+		{
 
-		[Bindable]
-		public var transitions : Array;
+			[Bindable]
+			public var states : Array = [];
 
-		private var _currentState : String;
+			[Bindable]
+			public var transitions : Array;
 
-		[Bindable]
-		public function get currentState() : String {
-			return _currentState;
-		}
+			private var _currentState : String;
 
-		public function set currentState(value : String) : void {
-			removeState(_currentState);
-			_currentState = value;
-			applyState(_currentState);
-		}
-
-		public function reloadState() : void {
-			removeState(_currentState);
-			applyState(_currentState);
-		}
-
-		public function hasState(stateName : String) : Boolean {
-			return Boolean(getState(stateName));
-		}
-
-		private function removeState(stateName : String) : void {
-			var state : State = getState(stateName);
-			if (!state) {
-				return;
+			[Bindable]
+			public function get currentState() : String {
+				return _currentState;
 			}
-			state.mx_internal::dispatchExitState();
-			var overrides : Array = state.overrides;
-			for (var i : int = overrides.length; i; i--) {
-				var aOverride : IOverride = overrides[i - 1];
-				processOverride(aOverride, false);
-			}
-		}
 
-		private function applyState(stateName : String) : void {
-			var state : State = getState(stateName);
-			if (!state) {
-				return;
+			public function set currentState(value : String) : void {
+				removeState(_currentState);
+				_currentState = value;
+				applyState(_currentState);
 			}
-			var overrides : Array = state.overrides;
-			for (var i : int = 0; i < overrides.length; i++) {
-				var aOverride : IOverride = overrides[i];
-				tempFixAddItemDepth(aOverride);
-				processOverride(aOverride, true);
-			}
-			state.mx_internal::dispatchEnterState();
-		}
 
-		private function processOverride(aOverride : IOverride, apply : Boolean) : void {
-			var targetField : String = aOverride is AddItems ? "destination" : (aOverride is SetProperty ? "target" : null);
-			var targetName : *;
-			if (targetField) {
-				targetName = aOverride[targetField];
-				aOverride[targetField] = targetName in this ? this[targetName] : this;
+			public function reloadState() : void {
+				removeState(_currentState);
+				applyState(_currentState);
 			}
-			if (apply) {
-				aOverride.apply(null);
-			} else {
-				aOverride.remove(null);
-			}
-			if (targetField) {
-				aOverride[targetField] = targetName;
-			}
-		}
 
-		/** todo: remove */
-		private function tempFixAddItemDepth(aOverride : IOverride) : void {
-			if (aOverride is AddItems) {
-				AddItems(aOverride).position = AddItems.FIRST;
+			public function hasState(stateName : String) : Boolean {
+				return Boolean(getState(stateName));
 			}
-		}
 
-		private function getState(stateName : String) : State {
-			for each(var state : State in states) {
-				if (state.name == stateName) {
-					return state;
+			private function removeState(stateName : String) : void {
+				var state : State = getState(stateName);
+				if (!state) {
+					return;
+				}
+				state.mx_internal::dispatchExitState();
+				var overrides : Array = state.overrides;
+				for (var i : int = overrides.length; i; i--) {
+					var aOverride : IOverride = overrides[i - 1];
+					processOverride(aOverride, false);
 				}
 			}
-			return null;
+
+			private function applyState(stateName : String) : void {
+				var state : State = getState(stateName);
+				if (!state) {
+					return;
+				}
+				var overrides : Array = state.overrides;
+				for (var i : int = 0; i < overrides.length; i++) {
+					var aOverride : IOverride = overrides[i];
+					tempFixAddItemDepth(aOverride);
+					processOverride(aOverride, true);
+				}
+				state.mx_internal::dispatchEnterState();
+			}
+
+			private function processOverride(aOverride : IOverride, apply : Boolean) : void {
+				var targetField : String = aOverride is AddItems ? "destination" : (aOverride is SetProperty ? "target" : null);
+				var targetName : *;
+				if (targetField) {
+					targetName = aOverride[targetField];
+					aOverride[targetField] = targetName in this ? this[targetName] : this;
+				}
+				if (apply) {
+					aOverride.apply(null);
+				} else {
+					aOverride.remove(null);
+				}
+				if (targetField) {
+					aOverride[targetField] = targetName;
+				}
+			}
+
+			/** todo: remove */
+			private function tempFixAddItemDepth(aOverride : IOverride) : void {
+				if (aOverride is AddItems) {
+					AddItems(aOverride).position = AddItems.FIRST;
+				}
+			}
+
+			private function getState(stateName : String) : State {
+				for each(var state : State in states) {
+					if (state.name == stateName) {
+						return state;
+					}
+				}
+				return null;
+			}
+
 		}
 
 		////////////////
