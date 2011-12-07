@@ -8,10 +8,13 @@ package mulunka.display {
 	import mx.core.IChildList;
 	import mx.core.IFactory;
 	import mx.core.mx_internal;
-	import mx.states.AddItems;
 	import mx.states.IOverride;
 	import mx.states.SetProperty;
 	import mx.states.State;
+
+	CONFIG::flex4 {
+		import mx.states.AddItems;
+	}
 
 	use namespace mx_internal;
 
