@@ -12,6 +12,8 @@ package mulunka.display {
 
 	import mulunka.display.interfaces.IDepthedView;
 
+	import mx.core.IUIComponent;
+
 	internal class BaseView extends Sprite {
 
 		protected var skin : DisplayObject;
@@ -69,6 +71,9 @@ package mulunka.display {
 			if (view is BaseView) {
 				var skinView : BaseView = view as BaseView;
 				skinView.createChildren();
+			}
+			if(view is IUIComponent){
+				IUIComponent(view).initialize();
 			}
 		}
 

@@ -2,14 +2,14 @@ package mulunka.display {
 	import flash.display.DisplayObject;
 	import flash.utils.Dictionary;
 
-	import mulunka.display.View;
-
 	import mx.collections.IList;
 	import mx.core.IDataRenderer;
 	import mx.core.IFactory;
 	import mx.events.CollectionEvent;
+	import mx.events.CollectionEventKind;
 
 	[Bindable]
+	/** reuse views */
 	public class CollectionView extends View {
 
 		public var setDataOnlyAfterAdding : Boolean = false;
@@ -18,9 +18,13 @@ package mulunka.display {
 
 		public var itemRendererFunction : Function;
 
-		private const dataProviderViews : Dictionary = new Dictionary(true);
+		private const renderers : Dictionary = new Dictionary(true);
+		private const removedRenderersCaches : Dictionary = new Dictionary();
 
 		private var _dataProvider : IList;
+
+		public var cleanData : Boolean = false;
+		public var cacheRemovedRenderers : Boolean = false;
 
 		public function set dataProvider(value : IList) : void {
 			if (_dataProvider == value) {
@@ -40,48 +44,96 @@ package mulunka.display {
 
 		private function onChange(event : CollectionEvent) : void {
 			switch (event.kind) {
-//				case CollectionEventKind.ADD:
-//				{
-//					var t= event.items;
-//					break;
-//				}
+				case CollectionEventKind.ADD:
+				{
+					createItems(event.items);
+					break;
+				}
+				case CollectionEventKind.REMOVE:
+				{
+					for (var index : int = numChildren - 1; index >= 0; index--) {
+						var child : DisplayObject = getChildAt(index);
+						if (child is IDataRenderer) {
+							var data : * = IDataRenderer(child).data;
+							if (data && event.items.indexOf(data) >= 0) {
+								removeRenderer(child);
+							}
+						}
+					}
+					break;
+				}
 				default:
 				{
+					removeOld();
+					addAllFromNew();
 					debug(this, "not implemented: " + event.kind);
 				}
 			}
 		}
 
 		private function addAllFromNew() : void {
-			const dataProviderLength : int = _dataProvider.length;
-			for (var index : uint = 0; index < dataProviderLength; index++) {
-				var itemModel : * = _dataProvider.getItemAt(index);
-				//itemAdded(itemModel, index);
-				var item : IDataRenderer = createItem(itemModel);
-				addChild(item as DisplayObject);
-				dataProviderViews[item] = true;
-				if (setDataOnlyAfterAdding) {
-					item.data = itemModel;
-				}
-				//debug(this, "addWW", item["baseModel"].id, item["baseModel"].spreadID);
+			createItems(_dataProvider);
+		}
+
+		private function createItems(items : *) : void {
+			for each(var itemModel : * in items) {
+				fullCreateItem(itemModel);
 			}
 		}
 
 		private function removeOld() : void {
-			for (var oldItem in dataProviderViews) {
-				//debug(this, "removeWW", oldItem.baseModel.id, oldItem.baseModel.spreadID);
-				removeChild(oldItem as DisplayObject);
-				delete dataProviderViews[oldItem];
+			for (var oldItem in renderers) {
+				removeRenderer(oldItem as DisplayObject);
 			}
 		}
 
+		private function removeRenderer(child : DisplayObject) : void {
+			removeChild(child);
+			delete renderers[child];
+			if (cacheRemovedRenderers) {
+				var data : * = IDataRenderer(child).data;
+				var itemFactory : IFactory = getFactory(data);
+				if(!removedRenderersCaches[itemFactory]){
+					removedRenderersCaches[itemFactory]=new Dictionary(true);
+				}
+				removedRenderersCaches[itemFactory][child] = true;
+			}
+			if (cleanData) {
+				IDataRenderer(child).data = null;
+			}
+		}
+
+		private function fullCreateItem(itemModel : *) : IDataRenderer {
+			var item : IDataRenderer = createItem(itemModel);
+			addChild(item as DisplayObject);
+			renderers[item] = true;
+			if (setDataOnlyAfterAdding) {
+				item.data = itemModel;
+			}
+			return item;
+		}
+
 		private function createItem(model : *) : IDataRenderer {
-			var itemFactory : IFactory = itemRenderer || itemRendererFunction(model);
-			var item : IDataRenderer = itemFactory.newInstance();
+			var itemFactory : IFactory = getFactory(model);
+			var item : IDataRenderer = rendererFromCache(itemFactory) || itemFactory.newInstance();
 			if (!setDataOnlyAfterAdding) {
 				item.data = model;
 			}
 			return item;
+		}
+
+		private function getFactory(model : *) : IFactory {
+			return itemRenderer || itemRendererFunction(model);
+		}
+
+		private function rendererFromCache(itemFactory : IFactory) : * {
+			if (!cacheRemovedRenderers) {
+				return null;
+			}
+			var removedRenderersCache : Dictionary = removedRenderersCaches[itemFactory];
+			for (var renderer in removedRenderersCache){
+				return renderer;
+			}
 		}
 	}
 }
