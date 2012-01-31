@@ -13,6 +13,7 @@ package mulunka.display {
 	import mx.states.State;
 
 	CONFIG::flex4 {
+		import mx.states.AddItems;
 	}
 
 	use namespace mx_internal;
