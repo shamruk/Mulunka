@@ -13,7 +13,6 @@ package mulunka.display {
 	import mx.states.State;
 
 	CONFIG::flex4 {
-		import mx.states.AddItems;
 	}
 
 	use namespace mx_internal;
@@ -43,6 +42,16 @@ package mulunka.display {
 			} else {
 				tempChildren = value;
 			}
+		}
+
+		public function set mxmlContent(value : Array) : void {
+			var displays : Vector.<DisplayObject> = new Vector.<DisplayObject>();
+			for each(var object : * in value) {
+				if (object is DisplayObject) {
+					displays.push(object);
+				}
+			}
+			children = displays;
 		}
 
 		override public function createChildren() : void {
