@@ -86,6 +86,11 @@ package mulunka.display {
 			return super.stage;
 		}
 
+		public function removeAllChildren() : void {
+			while (numChildren) {
+				removeChildAt(0);
+			}
+		}
 
 		public function getSkinPart(id : String) : DisplayObject {
 			createSkin();
