@@ -51,24 +51,48 @@ package mulunka.display {
 				}
 				case CollectionEventKind.REMOVE:
 				{
-					for (var index : int = numChildren - 1; index >= 0; index--) {
-						var child : DisplayObject = getChildAt(index);
-						if (child is IDataRenderer) {
-							var data : * = IDataRenderer(child).data;
-							if (data && event.items.indexOf(data) >= 0) {
-								removeRenderer(child);
-							}
-						}
-					}
+					removeItems(event.items);
+					break;
+				}
+				case CollectionEventKind.UPDATE:
+				{
+					break;
+				}
+				case CollectionEventKind.MOVE:
+				case CollectionEventKind.REFRESH:
+				{
+					debug(this, "not implemented: " + event.kind);
+					break;
+				}
+				case CollectionEventKind.REPLACE:
+				case CollectionEventKind.RESET:
+				{
+					debug(this, "full reset: " + event.kind);
+					fullRest();
 					break;
 				}
 				default:
 				{
-					removeOld();
-					addAllFromNew();
-					debug(this, "not implemented: " + event.kind);
+					debug(this, "undefined collection event: " + event.kind);
 				}
 			}
+		}
+
+		private function removeItems(items : Array) : void {
+			for (var index : int = numChildren - 1; index >= 0; index--) {
+				var child : DisplayObject = getChildAt(index);
+				if (child is IDataRenderer) {
+					var data : * = IDataRenderer(child).data;
+					if (data && items.indexOf(data) >= 0) {
+						removeRenderer(child);
+					}
+				}
+			}
+		}
+
+		private function fullRest() : void {
+			removeOld();
+			addAllFromNew();
 		}
 
 		private function addAllFromNew() : void {
@@ -93,8 +117,8 @@ package mulunka.display {
 			if (cacheRemovedRenderers) {
 				var data : * = IDataRenderer(child).data;
 				var itemFactory : IFactory = getFactory(data);
-				if(!removedRenderersCaches[itemFactory]){
-					removedRenderersCaches[itemFactory]=new Dictionary(true);
+				if (!removedRenderersCaches[itemFactory]) {
+					removedRenderersCaches[itemFactory] = new Dictionary(true);
 				}
 				removedRenderersCaches[itemFactory][child] = true;
 			}
@@ -131,7 +155,7 @@ package mulunka.display {
 				return null;
 			}
 			var removedRenderersCache : Dictionary = removedRenderersCaches[itemFactory];
-			for (var renderer in removedRenderersCache){
+			for (var renderer in removedRenderersCache) {
 				return renderer;
 			}
 		}
