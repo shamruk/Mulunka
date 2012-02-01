@@ -59,6 +59,14 @@ package mulunka.display {
 					break;
 				}
 				case CollectionEventKind.MOVE:
+				{
+					if (event.items.length == 1) {
+						moveItem(event.items[0], event.location, event.oldLocation);
+					} else {
+						debug(this, "unsupported item quantity")
+					}
+					break;
+				}
 				case CollectionEventKind.REFRESH:
 				{
 					debug(this, "not implemented: " + event.kind);
@@ -74,6 +82,16 @@ package mulunka.display {
 				default:
 				{
 					debug(this, "undefined collection event: " + event.kind);
+				}
+			}
+		}
+
+		private function moveItem(item : *, to : int, from : int) : void {
+			var view : DisplayObject = renderers[item];
+			if (view) {
+				var actualFrom : int = getChildIndex(view);
+				if (actualFrom >= 0 && actualFrom != to) {
+					setChildIndex(view, to);
 				}
 			}
 		}
