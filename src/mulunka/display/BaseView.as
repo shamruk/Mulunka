@@ -12,6 +12,10 @@ package mulunka.display {
 
 	import mulunka.display.interfaces.IDepthedView;
 
+	import mx.core.IInvalidating;
+
+	import mx.core.IInvalidating;
+
 	import mx.core.IUIComponent;
 
 	internal class BaseView extends Sprite {
@@ -74,6 +78,18 @@ package mulunka.display {
 			}
 			if(view is IUIComponent){
 				IUIComponent(view).initialize();
+			}
+			if(view is IInvalidating){
+				IInvalidating(view).invalidateDisplayList();
+				IInvalidating(view).invalidateProperties();
+				IInvalidating(view).invalidateSize();
+				IInvalidating(view).validateNow();
+			}
+			if("validateProperties" in view){
+				try{
+					view["validateProperties"]();
+				}catch(e:Error){
+				}
 			}
 		}
 
