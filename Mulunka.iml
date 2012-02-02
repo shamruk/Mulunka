@@ -3,9 +3,10 @@
   <component name="Flex.Build.Configuration">
     <option name="DO_BUILD" value="true" />
     <option name="OUTPUT_TYPE" value="Library" />
+    <option name="USE_DEFAULT_SDK_CONFIG_FILE" value="false" />
     <option name="OUTPUT_FILE_NAME" value="Mulunka.swc" />
     <option name="TARGET_PLAYER_VERSION" value="10.2.0" />
-    <option name="ADDITIONAL_COMPILER_OPTIONS" value="-define=CONFIG::flex4,false -static-link-runtime-shared-libraries=true" />
+    <option name="ADDITIONAL_COMPILER_OPTIONS" value="-define=CONFIG::flex4,false -static-link-runtime-shared-libraries=true -load-config+=flex-config.xml " />
     <option name="VERSION" value="3" />
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
