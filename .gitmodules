@@ -1,3 +1,6 @@
 [submodule "Stats"]
 	path = Stats
 	url = git://github.com/shamruk/Hi-ReS-Stats.git
+[submodule "Conveyor"]
+	path = Conveyor
+	url = git://github.com/shamruk/Conveyor.git
