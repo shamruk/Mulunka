@@ -7,15 +7,11 @@ package mulunka.display {
 	import flash.display.Shape;
 	import flash.display.Sprite;
 
-	import mx.binding.utils.BindingUtils;
-	import mx.binding.utils.ChangeWatcher;
-
 	import mulunka.display.interfaces.IDepthedView;
 
+	import mx.binding.utils.BindingUtils;
+	import mx.binding.utils.ChangeWatcher;
 	import mx.core.IInvalidating;
-
-	import mx.core.IInvalidating;
-
 	import mx.core.IUIComponent;
 
 	internal class BaseView extends Sprite {
@@ -76,19 +72,24 @@ package mulunka.display {
 				var skinView : BaseView = view as BaseView;
 				skinView.createChildren();
 			}
-			if(view is IUIComponent){
+			if (view is IUIComponent) {
 				IUIComponent(view).initialize();
+				try {
+					view["initialized"] = true;
+					//view.mx_internal::$visible=true;
+				} catch (e : *) {
+				}
 			}
-			if(view is IInvalidating){
+			if (view is IInvalidating) {
 				IInvalidating(view).invalidateDisplayList();
 				IInvalidating(view).invalidateProperties();
 				IInvalidating(view).invalidateSize();
 				IInvalidating(view).validateNow();
 			}
-			if("validateProperties" in view){
-				try{
+			if ("validateProperties" in view) {
+				try {
 					view["validateProperties"]();
-				}catch(e:Error){
+				} catch (e : Error) {
 				}
 			}
 		}
