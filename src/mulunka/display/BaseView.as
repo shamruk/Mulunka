@@ -8,6 +8,7 @@ package mulunka.display {
 	import flash.display.Sprite;
 
 	import mulunka.display.interfaces.IDepthedView;
+	import mulunka.logging.debug;
 
 	import mx.binding.utils.BindingUtils;
 	import mx.binding.utils.ChangeWatcher;

@@ -1,6 +1,8 @@
 package mulunka.util {
 	import flash.utils.Dictionary;
 
+	import mulunka.logging.debug;
+
 	public class UniqueObjectName {
 
 		private static const NAME_FILTER : RegExp = /\[object (\w+)\]/;

@@ -1,6 +1,8 @@
 package mulunka.util.debugging {
 	import flash.utils.getTimer;
 
+	import mulunka.logging.debug;
+
 	public class TimeDebug {
 
 		private static var time : uint;

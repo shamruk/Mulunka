@@ -2,6 +2,8 @@ package mulunka.display {
 	import flash.display.DisplayObject;
 	import flash.utils.Dictionary;
 
+	import mulunka.logging.debug;
+
 	import mx.collections.IList;
 	import mx.core.IDataRenderer;
 	import mx.core.IFactory;

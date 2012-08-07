@@ -1,4 +1,6 @@
 package mulunka.util.collections {
+	import mulunka.logging.warn;
+
 	import mx.collections.IList;
 
 	public class CollectionSynchronizer {
