@@ -29,7 +29,7 @@ package mulunka.display {
 		public var cleanData : Boolean = false;
 		public var cacheRemovedRenderers : Boolean = false;
 
-		public var layout : ILayout;
+		private var _layout : ILayout;
 
 		public function set dataProvider(value : IList) : void {
 			if (_dataProvider == value) {
@@ -130,9 +130,14 @@ package mulunka.display {
 			layoutAllItems();
 		}
 
+		public function set layout(value : ILayout) : void {
+			_layout = value;
+			layoutAllItems();
+		}
+
 		private function layoutAllItems() : void {
-			if (layout) {
-				layout.layoutContainer(this);
+			if (_layout) {
+				_layout.layoutContainer(this);
 			}
 		}
 
