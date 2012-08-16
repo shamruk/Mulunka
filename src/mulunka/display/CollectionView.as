@@ -2,6 +2,7 @@ package mulunka.display {
 	import flash.display.DisplayObject;
 	import flash.utils.Dictionary;
 
+	import mulunka.display.layout.ILayout;
 	import mulunka.logging.debug;
 
 	import mx.collections.IList;
@@ -27,6 +28,8 @@ package mulunka.display {
 
 		public var cleanData : Boolean = false;
 		public var cacheRemovedRenderers : Boolean = false;
+
+		public var layout : ILayout;
 
 		public function set dataProvider(value : IList) : void {
 			if (_dataProvider == value) {
@@ -108,6 +111,7 @@ package mulunka.display {
 					}
 				}
 			}
+			layoutAllItems();
 		}
 
 		private function fullRest() : void {
@@ -122,6 +126,13 @@ package mulunka.display {
 		private function createItems(items : *) : void {
 			for each(var itemModel : * in items) {
 				fullCreateItem(itemModel);
+			}
+			layoutAllItems();
+		}
+
+		private function layoutAllItems() : void {
+			if (layout) {
+				layout.layoutContainer(this);
 			}
 		}
 
