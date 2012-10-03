@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="Flex.Build.Configuration">
-    <option name="DO_BUILD" value="true" />
-    <option name="OUTPUT_TYPE" value="Library" />
-    <option name="USE_DEFAULT_SDK_CONFIG_FILE" value="false" />
-    <option name="OUTPUT_FILE_NAME" value="Mulunka.swc" />
-    <option name="TARGET_PLAYER_VERSION" value="10.2.0" />
-    <option name="ADDITIONAL_COMPILER_OPTIONS" value="-define=CONFIG::flex4,false -static-link-runtime-shared-libraries=true -load-config+=flex-config.xml " />
-    <option name="VERSION" value="3" />
+  <component name="FlexBuildConfigurationManager" active="Mulunka">
+    <configurations>
+      <configuration name="Mulunka" output-type="Library" output-file="Mulunka.swc" output-folder="$MODULE_DIR$/../out/production/Mulunka">
+        <dependencies target-player="10.2" component-set="MxOnly">
+          <sdk name="4.5.1" />
+        </dependencies>
+        <compiler-options>
+          <option name="additionalOptions" value="-define=CONFIG::flex4,false -static-link-runtime-shared-libraries=true -load-config+=flex-config.xml" />
+        </compiler-options>
+        <packaging-air-desktop />
+        <packaging-android />
+        <packaging-ios />
+      </configuration>
+    </configurations>
+    <compiler-options />
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -16,8 +23,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Stats/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Conveyor/src" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="jdk" jdkName="4.5.1" jdkType="Flex SDK Type (new)" />
   </component>
 </module>
 
