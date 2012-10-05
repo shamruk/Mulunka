@@ -7,7 +7,7 @@
           <sdk name="4.5.1" />
         </dependencies>
         <compiler-options>
-          <option name="additionalOptions" value="-define=CONFIG::flex4,false -static-link-runtime-shared-libraries=true -load-config+=flex-config.xml" />
+          <option name="additionalOptions" value="-define=CONFIG::flex4,false" />
         </compiler-options>
         <packaging-air-desktop />
         <packaging-android />
