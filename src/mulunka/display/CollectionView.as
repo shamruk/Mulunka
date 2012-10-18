@@ -37,14 +37,13 @@ package mulunka.display {
 			}
 			removeOld();
 			if (_dataProvider) {
-				_dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, onChange);
+				_dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, onChange);
 			}
 			_dataProvider = value;
-			if (!_dataProvider) {
-				return;
+			if (_dataProvider) {
+				addAllFromNew();
+				_dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, onChange);
 			}
-			addAllFromNew();
-			value.addEventListener(CollectionEvent.COLLECTION_CHANGE, onChange);
 		}
 
 		private function onChange(event : CollectionEvent) : void {
