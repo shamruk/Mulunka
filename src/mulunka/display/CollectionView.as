@@ -67,25 +67,25 @@ package mulunka.display {
 					if (event.items.length == 1) {
 						moveItem(event.items[0], event.location, event.oldLocation);
 					} else {
-						debug(this, "unsupported item quantity")
+						mulunka.logging.debug(this, "unsupported item quantity")
 					}
 					break;
 				}
 				case CollectionEventKind.REFRESH:
 				{
-					debug(this, "not implemented: " + event.kind);
+					mulunka.logging.debug(this, "not implemented: " + event.kind);
 					break;
 				}
 				case CollectionEventKind.REPLACE:
 				case CollectionEventKind.RESET:
 				{
-					debug(this, "full reset: " + event.kind);
+					mulunka.logging.debug(this, "full reset: " + event.kind);
 					fullRest();
 					break;
 				}
 				default:
 				{
-					debug(this, "undefined collection event: " + event.kind);
+					mulunka.logging.debug(this, "undefined collection event: " + event.kind);
 				}
 			}
 		}

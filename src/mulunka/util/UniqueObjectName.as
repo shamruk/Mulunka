@@ -19,7 +19,7 @@ package mulunka.util {
 			if (names[id]) {
 				var uid : String = id + names[id];
 				while (names[uid]) {
-					debug("UniqueObjectName", "strange");
+					mulunka.logging.debug("UniqueObjectName", "strange");
 					names[id]++;
 					uid = id + names[id];
 				}

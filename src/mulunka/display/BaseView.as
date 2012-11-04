@@ -24,7 +24,7 @@ package mulunka.display {
 
 		public function createChildren() : void {
 			if (initialized) {
-				debug(this, "error: already initialized");
+				mulunka.logging.debug(this, "error: already initialized");
 //				return;
 			}
 			createSkin();

@@ -15,7 +15,7 @@ package mulunka.util.debugging {
 		public static function reset(object : *) : void {
 
 			for (var id : String in timeSums) {
-				debug("time sum", timeSums[id], timeCounts[id], id);
+				mulunka.logging.debug("time sum", timeSums[id], timeCounts[id], id);
 				timeSums[id] = 0;
 				timeCounts[id] = 0;
 			}
@@ -24,13 +24,13 @@ package mulunka.util.debugging {
 			time += d;
 			var sd : uint = getTimer() - subTime;
 			subTime += sd;
-			debug("time reset", sd, d, object, "---------------------------");
+			mulunka.logging.debug("time reset", sd, d, object, "---------------------------");
 		}
 
 		public static function log(object : *, info : *) : void {
 			var sd : uint = getTimer() - subTime;
 			subTime += sd;
-			debug("time log", sd, getTimer() - time, info, object);
+			mulunka.logging.debug("time log", sd, getTimer() - time, info, object);
 		}
 
 		public static function start(object : *, id : String) : void {
@@ -52,7 +52,7 @@ package mulunka.util.debugging {
 				timeCounts[id] = (timeCounts[id] || 0) + 1;
 
 				if (!skipLog) {
-					debug("time finish", delta, id, object);
+					mulunka.logging.debug("time finish", delta, id, object);
 				}
 
 				timeDepths[id] = null;

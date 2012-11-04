@@ -40,7 +40,7 @@ package mulunka.util.collections {
 			}
 
 			if (sourceCollection.length != targetCollection.length) {
-				warn("Strange error in synchronization");
+				mulunka.logging.warn("Strange error in synchronization");
 			}
 		}
 	}
