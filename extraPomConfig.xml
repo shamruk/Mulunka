@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<data>
+	<defines>
+		<property>
+			<name>CONFIG::flex4</name>
+			<value>false</value>
+		</property>
+		<property>
+			<name>CONFIG::flex3</name>
+			<value>true</value>
+		</property>
+	</defines>
+</data>
