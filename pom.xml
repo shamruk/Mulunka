@@ -29,7 +29,7 @@
   <build>
     <sourceDirectory>src</sourceDirectory>
     <outputDirectory>../out/maven-temp</outputDirectory>
-    <directory>../out/production/Mulunka</directory>
+    <directory>../out/maven-out</directory>
     <plugins>
       <plugin>
         <groupId>org.sonatype.flexmojos</groupId>
