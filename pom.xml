@@ -45,7 +45,6 @@
           <compilerWarnings>
             <show-binding-warnings>false</show-binding-warnings>
           </compilerWarnings>
-          <incremental>${flex.compiler.incremental}</incremental>
           <keepAs3Metadatas>
             <name>Inject</name>
             <name>Dispatcher</name>
