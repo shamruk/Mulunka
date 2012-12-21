@@ -1,5 +1,7 @@
 package mulunka.display {
 	import flash.display.DisplayObject;
+	import flash.events.Event;
+	import flash.events.IEventDispatcher;
 	import flash.utils.Dictionary;
 
 	import mulunka.display.layout.ILayout;
@@ -11,9 +13,12 @@ package mulunka.display {
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 
-	[Bindable]
 	/** reuse views */
+	[Event(type="flash.events.Event", name="itemAdded")]
+	[Bindable]
 	public class CollectionView extends View {
+
+		public static const ITEM_ADDED : String = "itemAdded";
 
 		public var setDataOnlyAfterAdding : Boolean = false;
 
@@ -30,6 +35,14 @@ package mulunka.display {
 		public var cacheRemovedRenderers : Boolean = false;
 
 		private var _layout : ILayout;
+
+		public function CollectionView() {
+			addEventListener(ITEM_ADDED, onItemAdded);
+		}
+
+		private function onItemAdded(event : Event) : void {
+			event.stopPropagation();
+		}
 
 		public function set dataProvider(value : IList) : void {
 			if (_dataProvider == value) {
@@ -67,25 +80,25 @@ package mulunka.display {
 					if (event.items.length == 1) {
 						moveItem(event.items[0], event.location, event.oldLocation);
 					} else {
-						mulunka.logging.debug(this, "unsupported item quantity")
+						debug(this, "unsupported item quantity")
 					}
 					break;
 				}
 				case CollectionEventKind.REFRESH:
 				{
-					mulunka.logging.debug(this, "not implemented: " + event.kind);
+					debug(this, "not implemented: " + event.kind);
 					break;
 				}
 				case CollectionEventKind.REPLACE:
 				case CollectionEventKind.RESET:
 				{
-					mulunka.logging.debug(this, "full reset: " + event.kind);
+					debug(this, "full reset: " + event.kind);
 					fullRest();
 					break;
 				}
 				default:
 				{
-					mulunka.logging.debug(this, "undefined collection event: " + event.kind);
+					debug(this, "undefined collection event: " + event.kind);
 				}
 			}
 		}
@@ -168,6 +181,9 @@ package mulunka.display {
 			renderers[item] = true;
 			if (setDataOnlyAfterAdding) {
 				item.data = itemModel;
+			}
+			if (hasEventListener(ITEM_ADDED)) {
+				IEventDispatcher(item).dispatchEvent(new Event(ITEM_ADDED, true));
 			}
 			return item;
 		}
